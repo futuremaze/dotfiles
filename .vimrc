@@ -1,3 +1,55 @@
+"NeoBundle Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
+
+" PlantUML
+NeoBundle "aklt/plantuml-syntax"
+
+" Previm
+" NeoBundle 'kannokanno/previm'
+NeoBundle 'kazuph/previm', 'feature/add-plantuml-plugin'
+NeoBundle 'tyru/open-browser.vim'
+" let g:previm_open_cmd = 'open -a Safari'
+nnoremap <silent><Space><Space>p :PrevimOpen<CR>
+
+" You can specify revision/branch/tag.
+NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+" pep8, pyflakes
+NeoBundle 'scrooloose/syntastic'
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+
+" Required:
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+"End NeoBundle Scripts-------------------------
+
 " 改行時に自動でインデントを行なう
 set autoindent
 
@@ -51,7 +103,7 @@ set list
 set listchars=eol:¬
 
 " マウスを有効にする
-set mouse=a
+" set mouse=a
 
 " ファイル上書き時にバックアップをとらない
 set nobackup
@@ -146,3 +198,13 @@ nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 " インサートモードから抜ける
 inoremap jj <ESC>
 
+"=======================================================
+" colorscheme
+" ------------------------------------------------------
+syntax on
+set background=dark
+if ($ft=='ruby')
+  colorscheme Tomorrow-Night
+else
+  colorscheme hybrid
+endif
