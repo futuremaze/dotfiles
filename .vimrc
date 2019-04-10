@@ -1,210 +1,344 @@
-"NeoBundle Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+" setting
+if has('vim_starting')
+  set nocompatible
 endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+if !filereadable(expand('~/.vim/autoload/plug.vim'))
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let g:not_finish_vimplug = "yes"
+  autocmd VimEnter * PlugInstall
+endif
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-
-" PlantUML
-NeoBundle "aklt/plantuml-syntax"
-
-" Previm
-" NeoBundle 'kannokanno/previm'
-NeoBundle 'kazuph/previm', 'feature/add-plantuml-plugin'
-NeoBundle 'tyru/open-browser.vim'
-" let g:previm_open_cmd = 'open -a Safari'
+" plugin
+call plug#begin(expand('~/.vim/plugged'))
+"" space + ne -> sidebar
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+"" ga -> align
+Plug 'junegunn/vim-easy-align'
+"" space + go -> exec script
+Plug 'thinca/vim-quickrun'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"" gcc -> comment
+Plug 'tpope/vim-commentary'
+"" option bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"" auto bracket
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
+"" error detect
+Plug 'scrooloose/syntastic'
+"" delete white space
+Plug 'bronson/vim-trailing-whitespace'
+"" auto complete
+Plug 'sheerun/vim-polyglot'
+Plug 'Valloric/YouCompleteMe'
+Plug 'ervandew/supertab'
+"" html
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'tpope/vim-haml'
+Plug 'mattn/emmet-vim'
+"" javascript
+Plug 'jelera/vim-javascript-syntax'
+"" php
+Plug 'arnaud-lb/vim-php-namespace'
+"" python
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+"" space + sh -> vimshell
+Plug 'Shougo/vimshell.vim'
+"" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+"" PreVim
+Plug 'previm/previm'
+Plug 'feature/add-plantuml-plugin'
+Plug 'tyru/open-browser.vim'
+"let g:previm_open_cmd = 'open -a Safari'
 nnoremap <silent><Space><Space>p :PrevimOpen<CR>
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+    autocmd BufNewFile,BufRead *.{asc,adoc,asciidoc} set filetype=asciidoc
+augroup END
 " pep8, pyflakes
-NeoBundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-
-" Required:
-call neobundle#end()
-
-" Required:
+call plug#end()
 filetype plugin indent on
+let mapleader="\<Space>"
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+"" youcompleteme
+let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
+let g:ycm_python_binary_path = '/usr/bin/python2.7'
+let g:ycm_auto_trigger = 1
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:make = 'gmake'
+if exists('make')
+  let g:make = 'make'
+endif
 
-" 改行時に自動でインデントを行なう
-set autoindent
+"" vim-airline
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
 
-" ファイルが外部で変更された際に自動で読み込む
-set autoread
+"" nerdtree
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 30
+let NERDTreeShowHidden=1
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <Leader>dir :NERDTreeTabsToggle<CR>
+autocmd BufWritePre * :FixWhitespace
 
-" バックスペースの影響範囲を設定する
-set backspace=indent,eol,start
+"" quickrun
+nnoremap <Leader>go :QuickRun<CR>
+let g:quickrun_config={'*': {'split': ''}}
 
-" OSとクリップボードを共有する
-set clipboard=unnamed,autoselect
+"" vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
-" 強調表示する列を設定する
-set colorcolumn=80
+"" vimshell
+"" nnoremap <Leader>sh :VimShellPop<CR>
+"" nnoremap <Leader>sh :vertical terminal<CR>
+nnoremap <Leader>sh :terminal<CR>
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_prompt =  '$ '
 
-" 未保存ファイルの終了時に保存確認を行なう
-set confirm
+"" syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
 
-" カーソル行を強調表示する
-set cursorline
+"" jedi-vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#force_py_version = 3
+autocmd FileType python setlocal completeopt-=preview
 
-" 文字コードを設定する
-set encoding=utf8
-set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+"" syntastic
+let g:syntastic_python_checkers=['python', 'flake8']
+let g:polyglot_disabled = ['python']
+let python_highlight_all = 1
 
-" タブの代わりにスペースを挿入する
-set expandtab
+"" vim-airline
+let g:airline#extensions#virtualenv#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+if !exists('g:airline_powerline_fonts')
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep          = '▶'
+  let g:airline_left_alt_sep      = '»'
+  let g:airline_right_sep         = '◀'
+  let g:airline_right_alt_sep     = '«'
+  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#linecolumn#prefix = '¶'
+  let g:airline#extensions#paste#symbol      = 'ρ'
+  let g:airline_symbols.linenr    = '␊'
+  let g:airline_symbols.branch    = '⎇'
+  let g:airline_symbols.paste     = 'ρ'
+  let g:airline_symbols.paste     = 'Þ'
+  let g:airline_symbols.paste     = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
+else
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+endif
 
-" ファイル変更中に他のファイルを表示可能にする
-set hidden
+" function
+"" xaml
+augroup MyXML
+  autocmd!
+  autocmd Filetype xml inoremap <buffer> </ </<C-x><C-o>
+  autocmd Filetype html inoremap <buffer> </ </<C-x><C-o>
+augroup END
 
-" コマンドラインモードで保存する履歴数を設定する
-set history=1000
+"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+augroup vimrc-sync-fromstart
+  autocmd!
+  autocmd BufEnter * :syntax sync maxlines=200
+augroup END
 
-" 検索結果をハイライト表示する
-set hlsearch
+"" Remember cursor position
+augroup vimrc-remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
 
-" 大文字と小文字を区別せず検索する
-set ignorecase
+"" txt
+augroup vimrc-wrapping
+  autocmd!
+  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+augroup END
+if !exists('*s:setupWrapping')
+  function s:setupWrapping()
+    set wrap
+    set wm=2
+    set textwidth=79
+  endfunction
+endif
 
-" インクリメンタルサーチを有効にする
-set incsearch
+"" make/cmake
+augroup vimrc-make-cmake
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
+augroup END
 
-" ステータスバーを常に表示する
-set laststatus=2
+"" python
+augroup vimrc-python
+  autocmd!
+  autocmd FileType python setlocal
+      \ formatoptions+=croq softtabstop=4
+      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+augroup END
 
-" 不可視文字を表示する
-set list
-
-" 不可視文字の表示方法を設定する
-set listchars=eol:¬
-
-" マウスを有効にする
-" set mouse=a
-
-" ファイル上書き時にバックアップをとらない
-set nobackup
-set nowritebackup
-
-" スワップファイルを作成しない
-set noswapfile
-
-" 行番号を表示する
-set number
-
-" ルーラーを表示する
-set ruler
-
-" カーソル行の上下へのオフセットを設定する
-set scrolloff=4
-
-" インデントでずれる幅を設定する
-set shiftwidth=2
-
-" 入力中のコマンドを表示する
-set showcmd
-
-" 対応するカッコを強調表示する
-set showmatch
-
-" タブバーを常に表示する
-set showtabline=2
-
-" 検索文字列に大文字が含まれている場合は区別して検索する
-set smartcase
-
-" 改行入力行の末尾にあわせてインデントを増減する
-set smartindent
-
-" コンテキストに応じたタブの処理を行なう
-set smarttab
-
-" タブやバックスペースで処理するスペースの数を設定する
-set softtabstop=2
-
-" 新しいウィンドウを下/右に開く
-set splitbelow
-set splitright
-
-" タブ幅を設定する
-set tabstop=2
-
-" 編集中のファイル名を表示する
-set title
-
-" ビープを無効にする
-set visualbell t_vb=
-
-" 行頭・行末の左右移動で行を移動する
-set whichwrap=b,s,h,l,<,>,[,]
-
-" コマンドラインモードでの補完を有効にする
-set wildmenu
-
-" コマンドラインモードでの補完方法を設定する
-set wildmode=list:longest,full
-
-" 行を折り返す
-set wrap
-
-" 検索時に最後まで移動したら最初に戻る
-set wrapscan
-
-" 表示行で移動する
-noremap j gj
-noremap k gk
-
-" 行頭・行末に移動する
-noremap <Leader>h ^
-noremap <Leader>l $
-
-" 保存・終了する
+" shortcut leader=Space
+"" save
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
+nnoremap <Leader>qqq :q!<CR>
+nnoremap <Leader>eee :e<CR>
+nnoremap <Leader>wq :wq<CR>
+nnoremap <Leader>nn :noh<CR>
 
-" タブを移動する
-nnoremap <Leader>t gt
-nnoremap <Leader>T gT
+"" split
+nnoremap <Leader>s :<C-u>split<CR>
+nnoremap <Leader>v :<C-u>vsplit<CR>
 
-" ウィンドウ間を移動する
-nnoremap <Leader><Tab> <C-w>w
+"" Tabs
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <Leader>t :tabnew<CR>
+
+"" ignore wrap
+nnoremap j gj
+nnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+"" Sft + y => yunk to EOL
+nnoremap Y y$
+
+"" + => increment
+nnoremap + <C-a>
+
+"" - => decrement
+nnoremap - <C-x>
 
 " 検索によるハイライト表示を解除する
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
-" インサートモードから抜ける
-inoremap jj <ESC>
+"" move 15 words
+" nmap <silent> <Tab> 15<Right>
+" nmap <silent> <S-Tab> 15<Left>
+" nmap <silent> ll 15<Right>
+" nmap <silent> hh 15<Left>
+" nmap <silent> jj 15<Down>
+" nmap <silent> kk 15<Up>
 
-"=======================================================
-" colorscheme
-" ------------------------------------------------------
+"" pbcopy for OSX copy/paste
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
+
+"" move line/word
+nmap <C-e> $
+nmap <C-a> 0
+nmap <C-f> W
+nmap <C-b> B
+imap <C-e> <C-o>$
+imap <C-a> <C-o>0
+imap <C-f> <C-o>W
+imap <C-b> <C-o>B
+
+" base
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set bomb
+set binary
+set ttyfast
+set backspace=indent,eol,start
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
+set splitright
+set splitbelow
+set hidden
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set nobackup
+set noswapfile
+set fileformats=unix,dos,mac
 syntax on
-set background=dark
-if ($ft=='ruby')
-  colorscheme Tomorrow-Night
-else
-  colorscheme hybrid
-endif
+set ruler
+set number
+set gcr=a:blinkon0
+set scrolloff=3
+set laststatus=2
+set modeline
+set modelines=10
+set title
+set titleold="Terminal"
+set titlestring=%F
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set autoread
+set noerrorbells visualbell t_vb=
+set clipboard+=unnamed,autoselect
+set mouse=a
+set whichwrap=b,s,h,l,<,>,[,]
+highlight Pmenu ctermbg=233 ctermfg=241
+highlight PmenuSel ctermbg=233 ctermfg=166
+highlight Search ctermbg=166 ctermfg=233
+highlight Visual ctermbg=166 ctermfg=233
+
+" vimdiffの色設定
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
