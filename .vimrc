@@ -72,6 +72,10 @@ augroup END
 " pep8, pyflakes
 Plug 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+
+" bclose
+Plug 'rbgrouleff/bclose.vim'
+
 call plug#end()
 filetype plugin indent on
 let mapleader="\<Space>"
@@ -332,6 +336,7 @@ set noerrorbells visualbell t_vb=
 set clipboard+=unnamed,autoselect
 set mouse=a
 set whichwrap=b,s,h,l,<,>,[,]
+set ambiwidth=double  "Display double-width symbols properly
 highlight Pmenu ctermbg=233 ctermfg=241
 highlight PmenuSel ctermbg=233 ctermfg=166
 highlight Search ctermbg=166 ctermfg=233
