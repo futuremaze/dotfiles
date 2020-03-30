@@ -275,6 +275,12 @@ nnoremap - <C-x>
 " 検索によるハイライト表示を解除する
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
+" Ctrl + hjkl でウィンドウ間を移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 "" move 15 words
 " nmap <silent> <Tab> 15<Right>
 " nmap <silent> <S-Tab> 15<Left>
