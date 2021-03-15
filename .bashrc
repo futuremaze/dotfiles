@@ -1,12 +1,12 @@
 # スクリプト読み込み
-source /usr/local/etc/bash_completion.d/git-completion.bash
-source /usr/local/etc/bash_completion.d/git-prompt.sh
+# source /usr/local/etc/bash_completion.d/git-completion.bash
+# source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 # プロンプトに各種情報を表示
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUPSTREAM=1
-GIT_PS1_SHOWUNTRACKEDFILES=
-GIT_PS1_SHOWSTASHSTATE=1
+# GIT_PS1_SHOWDIRTYSTATE=1
+# GIT_PS1_SHOWUPSTREAM=1
+# GIT_PS1_SHOWUNTRACKEDFILES=
+# GIT_PS1_SHOWSTASHSTATE=1
 
 ############### ターミナルのコマンド受付状態の表示変更
 # \u ユーザ名
@@ -18,6 +18,6 @@ GIT_PS1_SHOWSTASHSTATE=1
 # \[ 表示させない文字列の開始
 # \] 表示させない文字列の終了
 # \$ $
-export PS1='\[\033[1;32m\]\u\[\033[00m\]:\[\033[1;34m\]\w\[\033[1;31m\]$(__git_ps1)\[\033[00m\] \$ '
+# export PS1='\[\033[1;32m\]\u\[\033[00m\]:\[\033[1;34m\]\w\[\033[1;31m\]$(__git_ps1)\[\033[00m\] \$ '
 ##############
 
