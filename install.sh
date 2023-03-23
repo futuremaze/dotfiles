@@ -1,10 +1,8 @@
-#!/bin/bash -ue
+#!/bin/bash
+
+set -eu
 
 cd $(dirname $0)
-
-# NeoBundle
-# mkdir -p ~/.vim/bundle
-# git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 
 for f in .??*
 do
