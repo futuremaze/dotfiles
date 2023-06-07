@@ -150,6 +150,13 @@ nnoremap gk k
 " Yank to end of line
 nnoremap Y y$
 
+" No yank on delete key
+nnoremap x "_x
+nnoremap d "_d
+nnoremap D "_D
+xnoremap d "_d
+xnoremap p "_dP
+
 " Increment number under cursor
 nnoremap + <C-a>
 
@@ -183,4 +190,3 @@ command -nargs=1 MyLineSearch let @m=<q-args> | call search('^\s*'. @m)
 command -nargs=1 MyLineBackSearch let @m=<q-args> | call search('^\s*'. @m, 'b')
 nnoremap <Space>f :MyLineSearch<Space>
 nnoremap <Space>F :MyLineBackSearch<Space>
-
