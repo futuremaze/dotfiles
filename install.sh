@@ -11,4 +11,3 @@ do
 
     ln -sf $(pwd)/$f ~/$f
 done
-
