@@ -57,4 +57,29 @@ vim.opt.signcolumn = "yes" -- サインカラムを表示
 vim.cmd("highlight LineNr guifg=#8a70ac")
 
 -- カーソルの形状
-vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+-- vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+
+---------- vim-airline ----------
+-- タブラインを表示する
+vim.g["airline#extensions#tabline#enabled"] = 1
+-- ステータスラインに表示する項目を変更する
+vim.g["airline#extensions#defaut#layout"] = {
+    {'a', 'b', 'c'},
+    {'z'}
+}
+vim.g["airline_section_c"] = "%t %M"
+-- vim.g["airline_section_z"] =
+-- 変更がなければdiffの行数を表示しない
+vim.g["airline#extensions#hunks#non_zero_only"] = 1
+-- タブラインの表示を変更する
+vim.g["airline#extensions#tabline#fnamemod"] = ":t"
+vim.g["airline#extensions#tabline#show_buffers"] = 1
+vim.g["airline#extensions#tabline#show_splits"] = 0
+vim.g["airline#extensions#tabline#show_tabs"] = 1
+vim.g["airline#extensions#tabline#show_tab_nr"] = 0
+vim.g["airline#extensions#tabline#show_tab_type"] = 1
+vim.g["airline#extensions#tabline#show_close_button"] = 0
+
+---------- vim-gitgutter ----------
+-- 反映時間を短くする（デフォルト4000ms）
+-- vim.opt.updatetime=250

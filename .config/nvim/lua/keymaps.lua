@@ -16,7 +16,7 @@ keymap.set('n', '<Leader>eee', ':<C-u>e<CR>', {noremap = true})
 -- バッファ移動（次）
 keymap.set('n', '<C-l>', ':<C-u>bnext<CR>', {noremap = true, silent = true})
 -- バッファ移動（前）
-keymap.set('n', '<C-j>', ':<C-u>bprevious<CR>', {noremap = true, silent = true})
+keymap.set('n', '<C-h>', ':<C-u>bprevious<CR>', {noremap = true, silent = true})
 
 -- ウィンドウを分割する（横）
 keymap.set('n', '<Leader>s', ':<C-u>split<CR>', {noremap = true})
@@ -96,19 +96,29 @@ keymap.set('i', '<Down>', '<C-o>gj', {noremap = true})
 -- 行末へ移動
 keymap.set('n', '<C-e>', '$')
 -- 行頭へ移動
-keymap.set('n', '<C-a>', '0')
+keymap.set('n', '<C-a>', '^')
 -- 次の単語へ移動
 keymap.set('n', '<C-f>', 'W')
 -- 前の単語へ移動
 keymap.set('n', '<C-b>', 'B')
 -- 行末へ移動（入力中）
 keymap.set('i', '<C-e>', '<C-o>$')
+-- keymap.set('t', '<C-e>', '<C-\\><C-n>$a')
 -- 行頭へ移動（入力中）
-keymap.set('i', '<C-a>', '<C-o>0')
+keymap.set('i', '<C-a>', '<C-o>^')
+-- keymap.set('t', '<C-a>', '<C-\\><C-n>^i')
 -- 次の単語へ移動（入力中）
 keymap.set('i', '<C-f>', '<C-o>W')
+-- keymap.set('t', '<C-f>', '<C-\\><C-n>Wi')
 -- 前の単語へ移動（入力中）
 keymap.set('i', '<C-b>', '<C-o>B')
+-- keymap.set('t', '<C-b>', '<C-\\><C-n>Bi')
+-- 1文字移動（右）（入力中）
+keymap.set('i', '<C-l>', '<C-o>l')
+-- keymap.set('t', '<C-l>', '<C-\\><C-n>li')
+-- 1文字移動（左）（入力中）
+keymap.set('i', '<C-h>', '<C-o>h')
+-- keymap.set('t', '<C-h>', '<C-\\><C-n>hi')
 
 -- 行をコピーする（改行コードを含まない）
 keymap.set('n', 'Y', 'y$', {noremap = true})
@@ -138,3 +148,17 @@ keymap.set('t', '<C-w>j', '<CMD>wincmd j<CR>', {silent = true})
 keymap.set('t', '<C-w>k', '<CMD>wincmd k<CR>', {silent = true})
 -- ターミナル中のウィンドウ移動（右）
 keymap.set('t', '<C-w>l', '<CMD>wincmd l<CR>', {silent = true})
+
+---------- Fern ----------
+-- サイドにディレクトリツリーを表示
+keymap.set('n', '<Leader>dir', ':<C-u>Fern . -reveal=% -drawer -toggle -width=40<CR>', {noremap = true, silent = true})
+
+---------- vim-gitgutter ----------
+-- 前の変更箇所へ移動する
+keymap.set('n', 'g[', ':GitGutterPrevHunk<CR>', {noremap = true})
+-- 次の変更箇所へ移動する
+keymap.set('n', 'g]', ':GitGutterNextHunk<CR>', {noremap = true})
+-- diffをハイライトする
+keymap.set('n', 'gh', ':GitGutterLineHighlightsToggle<CR>', {noremap = true})
+-- カーソル行のdiffを表示する
+keymap.set('n', 'gp', ':GitGutterPreviewHunk<CR>', {noremap = true})
