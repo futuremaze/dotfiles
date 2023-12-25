@@ -1,7 +1,3 @@
-require("options")
-require("autocmds")
-require("keymaps")
-
 -- lazy.nvim(Package Manager)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -19,4 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 require("lazy").setup("plugins")
 
+require("options")
+require("autocmds")
+require("keymaps")
 require("themes")
+require("telescope_config")

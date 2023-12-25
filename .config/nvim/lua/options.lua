@@ -2,6 +2,11 @@
 -- vim.cmd('language en_US.utf8') -- 表示言語を英語にする(Linux)
 -- vim.cmd('language en_US') -- 表示言語を英語にする(Mac)
 
+-- シェル
+if vim.fn.has("win32") or vim.fn.has("win64") then
+    vim.opt.shell = "bash"
+end
+
 -- ファイル
 vim.opt.fileencoding = "utf-8" -- エンコーディングをUTF-8に設定
 vim.opt.swapfile = false -- スワップファイルを作成しない
@@ -48,6 +53,12 @@ vim.opt.showmatch = true -- 対応する括弧をハイライト表示
 vim.opt.splitright = true -- 分割ウィンドウを右に開く
 vim.opt.splitbelow = true -- 分割ウィンドウを下に開く
 
+
+-- 補完
+vim.opt.completeopt = {
+    "menuone",
+    "noinsert",
+}
 -- インタフェース
 vim.opt.winblend = 0 -- ウィンドウの不透明度
 vim.opt.pumblend = 0 -- ポップアップメニューの不透明度

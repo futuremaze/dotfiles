@@ -136,6 +136,17 @@ keymap.set('n', '-', '<C-x>', {noremap = true})
 keymap.set('n', '<Leader>nn', ':<C-u>noh<CR>', {noremap = true})
 keymap.set('n', '<Esc><Esc>', ':<C-u>noh<CR>', {noremap = true})
 
+-- 補完確定時にENTERで改行しない
+-- keymap.set('i', '<CR>', 'coc#pum#visible() ? "<C-y>" : "<CR>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {noremap = true, silent = true, expr = true})
+-- 補完時に<C-p>,<C-n>で自動挿入しない
+-- keymap.set('i', '<C-p>', 'coc#pum#visible() ? "<Up>" : "<C-p>"', {noremap = true, silent = true, expr = true})
+-- keymap.set('i', '<C-n>', 'coc#pum#visible() ? "<Down>" : "<C-n>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<C-n>', 'coc#pum#visible() ? coc#pum#next(1) : "<C-n>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<C-p>', 'coc#pum#visible() ? coc#pum#next(1) : "<C-p>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<C-h>', 'coc#pum#visible() ? coc#pum#cancel() : "<C-h>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<Esc>', 'coc#pum#visible() ? coc#pum#cancel() : "<Esc>"', {noremap = true, silent = true, expr = true})
+
 -- ターミナルを表示（下分割）
 keymap.set('n', '<Leader>sh', ':belowright new<CR>:resize 20<CR>:terminal<CR>', {noremap = true, silent = true})
 -- ターミナルノーマルモードに切り替える
@@ -162,3 +173,28 @@ keymap.set('n', 'g]', ':GitGutterNextHunk<CR>', {noremap = true})
 keymap.set('n', 'gh', ':GitGutterLineHighlightsToggle<CR>', {noremap = true})
 -- カーソル行のdiffを表示する
 keymap.set('n', 'gp', ':GitGutterPreviewHunk<CR>', {noremap = true})
+
+---------- telescope ----------
+local builtin = require('telescope.builtin')
+-- ファイル検索
+vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
+-- テキスト検索
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+-- gitの操作（git status）
+vim.keymap.set("n", "<leader>gs", builtin.git_status, {})
+-- gitの操作（git log）
+vim.keymap.set("n", "<leader>gl", builtin.git_commits, {})
+-- バッファの操作
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+-- 履歴の操作
+vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
+-- nvim設定ファイルへのアクセス
+vim.keymap.set("n", "<Leader>fn", ":Telescope find_files cwd=~/AppData/Local/nvim<CR>", {})
+-- カラーテーマの一覧
+vim.keymap.set("n", "<leader>fc", builtin.colorscheme, {})
+-- vim_optionsの一覧
+vim.keymap.set("n", "<leader>fv", builtin.vim_options, {})
+-- keymapの一覧
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, {})
+-- registerの一覧
+vim.keymap.set("n", "<leader>fr", builtin.registers, {})
