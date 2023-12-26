@@ -143,7 +143,7 @@ keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', {norem
 -- keymap.set('i', '<C-p>', 'coc#pum#visible() ? "<Up>" : "<C-p>"', {noremap = true, silent = true, expr = true})
 -- keymap.set('i', '<C-n>', 'coc#pum#visible() ? "<Down>" : "<C-n>"', {noremap = true, silent = true, expr = true})
 keymap.set('i', '<C-n>', 'coc#pum#visible() ? coc#pum#next(1) : "<C-n>"', {noremap = true, silent = true, expr = true})
-keymap.set('i', '<C-p>', 'coc#pum#visible() ? coc#pum#next(1) : "<C-p>"', {noremap = true, silent = true, expr = true})
+keymap.set('i', '<C-p>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-p>"', {noremap = true, silent = true, expr = true})
 keymap.set('i', '<C-h>', 'coc#pum#visible() ? coc#pum#cancel() : "<C-h>"', {noremap = true, silent = true, expr = true})
 keymap.set('i', '<Esc>', 'coc#pum#visible() ? coc#pum#cancel() : "<Esc>"', {noremap = true, silent = true, expr = true})
 

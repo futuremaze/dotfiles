@@ -53,12 +53,12 @@ vim.opt.showmatch = true -- 対応する括弧をハイライト表示
 vim.opt.splitright = true -- 分割ウィンドウを右に開く
 vim.opt.splitbelow = true -- 分割ウィンドウを下に開く
 
-
 -- 補完
 vim.opt.completeopt = {
     "menuone",
     "noinsert",
 }
+
 -- インタフェース
 vim.opt.winblend = 0 -- ウィンドウの不透明度
 vim.opt.pumblend = 0 -- ポップアップメニューの不透明度
@@ -69,6 +69,9 @@ vim.cmd("highlight LineNr guifg=#8a70ac")
 
 -- カーソルの形状
 -- vim.o.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+
+-- コマンド入力確定までの時間
+vim.opt.timeoutlen = 300
 
 ---------- vim-airline ----------
 -- タブラインを表示する
